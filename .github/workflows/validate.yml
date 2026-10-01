@@ -1,0 +1,66 @@
+name: Validate packs
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency: {group: "validate-${{ github.ref }}", cancel-in-progress: true}
+env:
+  # The metasequoiaime/msime commit whose msime-pack the packs are checked with. Bump it when the input method's pack rules change, so CI accepts exactly what the shipped input method imports.
+  MSIME_REV: b5ecfbd7a11deb65c5c4f0a030a37b8bbd660a8b
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {persist-credentials: false}
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: {repository: metasequoiaime/msime, ref: "${{ env.MSIME_REV }}", path: msime, persist-credentials: false}
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            msime/target
+          key: msime-pack-${{ env.MSIME_REV }}
+      # Installs the toolchain msime's rust-toolchain.toml pins.
+      - name: Build msime-pack
+        working-directory: msime
+        run: |
+          rustup toolchain install
+          cargo build --release --locked -p msime-pack-tool --bin msime-pack
+      - name: Check packs and templates
+        run: scripts/check-packs.sh msime/target/release/msime-pack
+      - name: Build release zips
+        run: scripts/build-release.sh msime/target/release/msime-pack
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with: {name: packs, path: dist/, if-no-files-found: ignore}
+  publish:
+    needs: [validate]
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
+    permissions: {contents: write}
+    concurrency: {group: publish-packs, cancel-in-progress: false}
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with: {name: packs, path: dist}
+        continue-on-error: true
+      # One rolling "packs" release holds the current zip of every pack. Assets of removed packs and of superseded versions are deleted, so the release always mirrors packs/ on main.
+      - name: Publish the packs release
+        env: {GH_TOKEN: "${{ github.token }}", GH_REPO: "${{ github.repository }}"}
+        run: |
+          mkdir -p dist
+          shopt -s nullglob
+          files=(dist/*)
+          if ! gh release view packs >/dev/null 2>&1; then
+            gh release create packs --title "Packs" --notes "The current zip of every pack in packs/ on main. Import a zip in the input method's settings: 扩展 → 导入 .zip. SHA256SUMS.txt lists the checksums."
+          fi
+          if (( ${#files[@]} )); then
+            (cd dist && sha256sum -c SHA256SUMS.txt)
+            gh release upload packs "${files[@]}" --clobber
+          fi
+          gh release view packs --json assets -q '.assets[].name' | while read -r name; do
+            [[ -e "dist/$name" ]] || gh release delete-asset packs "$name" --yes
+          done

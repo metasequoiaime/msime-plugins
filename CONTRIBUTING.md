@@ -5,7 +5,9 @@
 3. 在输入法设置的「扩展」页用「导入文件夹」导入这个目录，确认能正常导入、听起来符合预期。
 4. 在 README 的扩展包列表里加一行，然后提交 PR。
 
-CI 会用输入法导入时的同一套规则校验每个包，校验不过的 PR 不会被合并。
+CI 会用输入法导入时的同一套规则校验每个包，校验不过的 PR 不会被合并。想在提交前自己检查，可以在 [metasequoiaime/msime](https://github.com/metasequoiaime/msime) 里执行 `cargo build -p msime-pack-tool --bin msime-pack` 编出校验工具，再在本仓库运行 `scripts/check-packs.sh <msime-pack 的路径>`。
+
+合并到 main 后，CI 会把每个包打成 `<id>-<version>.zip` 发到 [Packs 发布页](https://github.com/metasequoiaime/msime-plugins/releases/tag/packs)。
 
 ## 素材要求
 
