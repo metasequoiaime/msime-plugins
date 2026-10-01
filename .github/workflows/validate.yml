@@ -8,7 +8,7 @@ permissions: {contents: read}
 concurrency: {group: "validate-${{ github.ref }}", cancel-in-progress: true}
 env:
   # The metasequoiaime/msime commit whose msime-pack the packs are checked with. Bump it when the input method's pack rules change, so CI accepts exactly what the shipped input method imports.
-  MSIME_REV: b5ecfbd7a11deb65c5c4f0a030a37b8bbd660a8b
+  MSIME_REV: ebabfd88469341d133a2deb7de24072d708a368c
 jobs:
   validate:
     runs-on: ubuntu-24.04
