@@ -1,0 +1,22 @@
+# Template: a typing effect pack. It carries no files: it picks one of the input method's built-in effects and tunes it. Copy this folder to packs/<your-id>/ and edit.
+schema_version = 1
+kind = "effect"
+id = "example-effect"
+name = "示例特效"
+version = "1.0.0"
+license = "CC0-1.0"
+author = "你的名字"
+description = "模板：橙红两色的火花。"
+permissions = []
+
+[effect]
+# Required: "flash", "sparks" or "power_mode".
+style = "sparks"
+# Optional, 0-100, default 50.
+intensity = 70
+# Optional, 1-4 colours, each written #RRGGBB.
+colors = ["#FFB000", "#FF4060"]
+# Optional, 60-1500: how long one effect lasts in milliseconds.
+duration_ms = 400
+# Optional, 0-64: sparks per key; ignored by styles without sparks.
+particles = 24

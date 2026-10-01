@@ -1,6 +1,6 @@
 # msime-plugins
 
-水杉输入法（Metasequoia IME）的社区扩展包合集：按键音效、旋律、背景音乐、`/` 指令表等。
+水杉输入法（Metasequoia IME）的社区扩展包合集：按键音效、旋律、背景音乐、`/` 指令表、打字特效等。
 
 扩展包是纯数据：一个 `plugin.toml` 加上音频或模板，不能带任何可执行内容，也不能申请权限。同一个包在 macOS、Windows、Linux 和鸿蒙电脑（2in1）上通用，不需要按平台分别制作。
 
@@ -8,6 +8,22 @@
 
 | 目录 | 类型 | 名称 | 说明 |
 | --- | --- | --- | --- |
+| [`packs/mech-blue-switch`](packs/mech-blue-switch) | 按键音效 | 机械青轴 | 清脆的段落轴，空格和回车带卫星轴回响 |
+| [`packs/soft-thock`](packs/soft-thock) | 按键音效 | 静音线性轴 | 低沉的“咚”，没有咔嗒声，适合安静场合 |
+| [`packs/kalimba`](packs/kalimba) | 按键音效 | 拇指琴 | 五声音阶拇指琴，上屏时扫一个和弦 |
+| [`packs/jasmine-flower`](packs/jasmine-flower) | 旋律 | 茉莉花 | 古筝音色，每按一个键弹一个音 |
+| [`packs/fur-elise`](packs/fur-elise) | 旋律 | 致爱丽丝 | 钢琴音色，每按一个键弹一个音 |
+| [`packs/two-tigers`](packs/two-tigers) | 旋律 | 两只老虎 | 玩具木琴音色，每次上屏弹一个音 |
+| [`packs/rain-ambience`](packs/rain-ambience) | 背景音乐 | 窗外小雨 | 约 38 秒无缝循环的雨声 |
+| [`packs/kaomoji`](packs/kaomoji) | 指令表 | 颜文字 | `/kx` 开心、`/fp` 掀桌等 18 个颜文字 |
+| [`packs/date-formats`](packs/date-formats) | 指令表 | 日期时间格式 | `/rq`、`/iso`、`/sjc` 等 13 种日期时间写法 |
+| [`packs/symbols`](packs/symbols) | 指令表 | 常用符号 | `/ssd` ℃、`/dg` ✓、`/jt` → 等 31 个符号 |
+| [`packs/neon`](packs/neon) | 打字特效 | 霓虹 | 粉、青、紫三色火花，短促明亮 |
+| [`packs/sakura`](packs/sakura) | 打字特效 | 樱花 | 几片淡粉色花瓣慢慢飘散 |
+| [`packs/fireworks`](packs/fireworks) | 打字特效 | 烟花 | 金红烟花，连击越高越猛烈 |
+| [`packs/soft-glow`](packs/soft-glow) | 打字特效 | 微光 | 候选框淡淡亮一下，青绿色 |
+
+本仓库自带的这些包由维护者制作，特效包只是参数，同样以 CC0-1.0 发布。音频全部由 [`scripts/generate_seed_packs.py`](scripts/generate_seed_packs.py) 现场合成，没有任何录音或第三方素材，以 CC0-1.0 放入公有领域；旋律包演奏的乐曲均为传统民歌或早已进入公有领域的作品。
 
 ## 安装
 
@@ -40,7 +56,7 @@ packs/my-keys/
 | 键 | 说明 |
 | --- | --- |
 | `schema_version` | 格式版本，目前为 `1` |
-| `kind` | `sound`（按键音效或旋律）、`music`（背景音乐）、`command_table`（`/` 指令表） |
+| `kind` | `sound`（按键音效或旋律）、`music`（背景音乐）、`command_table`（`/` 指令表）、`effect`（打字特效） |
 | `id` | 小写字母、数字、`.`、`-`、`_`，以字母或数字开头，最长 64；本仓库内唯一，且与目录名一致 |
 | `name` / `version` | 必填，分别最长 80 和 32 个字节 |
 | `license` | 必填，SPDX 许可证表达式，覆盖目录里的全部文件，如 `CC0-1.0`、`CC-BY-4.0` |
@@ -62,6 +78,12 @@ packs/my-keys/
 ### `kind = "command_table"`
 
 `[[commands]]` 每项是 `trigger`（小写 ASCII 字母，最长 32）、`title`（候选旁显示的说明，最长 48 个字节）和 `template`。模板只能是文字加 `{date}`、`{date:格式}`、`{time}`、`{time:格式}`、`{weekday}` 这几个占位符，格式为 strftime 写法；不能含换行或制表符，展开后不超过 199 个 UTF-16 单元。每个包最多 256 条。
+
+### `kind = "effect"`
+
+特效包不带任何文件，只在 `[effect]` 里选用输入法内置的一种打字特效并调整参数：`style`（必填，`flash`、`sparks` 或 `power_mode`）、`intensity`（0 到 100，默认 50）、`colors`（1 到 4 个 `#RRGGBB` 颜色）、`duration_ms`（60 到 1500）、`particles`（每次按键的火花数，0 到 64）。目录里除了 `plugin.toml` 只能放 `.txt` / `.md` 说明。
+
+在输入法设置「扩展 → 打字效果」里选用。macOS 用全部参数；Windows 和鸿蒙电脑只闪烁候选卡片，取强度、时长和第一个颜色；Linux 只显示连击计数，特效包没有可见效果。
 
 完整的带注释示例见 [`templates/`](templates/)。
 
