@@ -1,0 +1,26 @@
+# Template: a "/" command table. Typing / and a trigger offers the expanded template as a candidate. Copy this folder to packs/<your-id>/ and edit.
+schema_version = 1
+kind = "command_table"
+id = "example-commands"
+name = "示例指令"
+version = "1.0.0"
+license = "CC0-1.0"
+author = "你的名字"
+description = "模板：日期、时间与签名。"
+permissions = []
+
+# trigger: lowercase ASCII letters, at most 32. title: shown beside the row, at most 48 bytes. template: literal text plus {date}, {date:FORMAT}, {time}, {time:FORMAT} and {weekday}, with FORMAT a strftime description; the text it expands to is at most 199 UTF-16 units. A row is one line, so templates cannot contain line breaks or tabs.
+[[commands]]
+trigger = "rq"
+title = "今天日期"
+template = "{date:%Y年%m月%d日} {weekday}"
+
+[[commands]]
+trigger = "sj"
+title = "现在时间"
+template = "{time:%H:%M}"
+
+[[commands]]
+trigger = "qm"
+title = "邮件签名"
+template = "祝好，你的名字 {date:%Y-%m-%d}"

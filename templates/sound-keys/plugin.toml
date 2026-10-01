@@ -1,0 +1,22 @@
+# Template: a key sound pack. Copy this folder to packs/<your-id>/, change id, name, author and description, and replace the samples with your own (WAV only, each at most 1.5 s and 512 KiB).
+schema_version = 1
+kind = "sound"
+# Lowercase letters, digits, ".", "-" and "_", starting with a letter or digit; it must be unique in this repository.
+id = "example-keys"
+name = "示例按键音"
+version = "1.0.0"
+# SPDX expression covering every file in this folder.
+license = "CC0-1.0"
+author = "你的名字"
+description = "模板：一组合成的短促按键音。"
+# Packs cannot request permissions; leave this empty.
+permissions = []
+mode = "keys"
+
+[sounds]
+# Required in keys mode; the other keys fall back to it when left out.
+default = "key.wav"
+space = "space.wav"
+enter = "enter.wav"
+backspace = "backspace.wav"
+commit = "commit.wav"
