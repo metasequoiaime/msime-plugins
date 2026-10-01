@@ -8,6 +8,18 @@
 
 | 目录 | 类型 | 名称 | 说明 |
 | --- | --- | --- | --- |
+| [`packs/mech-blue-switch`](packs/mech-blue-switch) | 按键音效 | 机械青轴 | 清脆的段落轴，空格和回车带卫星轴回响 |
+| [`packs/soft-thock`](packs/soft-thock) | 按键音效 | 静音线性轴 | 低沉的“咚”，没有咔嗒声，适合安静场合 |
+| [`packs/kalimba`](packs/kalimba) | 按键音效 | 拇指琴 | 五声音阶拇指琴，上屏时扫一个和弦 |
+| [`packs/jasmine-flower`](packs/jasmine-flower) | 旋律 | 茉莉花 | 古筝音色，每按一个键弹一个音 |
+| [`packs/fur-elise`](packs/fur-elise) | 旋律 | 致爱丽丝 | 钢琴音色，每按一个键弹一个音 |
+| [`packs/two-tigers`](packs/two-tigers) | 旋律 | 两只老虎 | 玩具木琴音色，每次上屏弹一个音 |
+| [`packs/rain-ambience`](packs/rain-ambience) | 背景音乐 | 窗外小雨 | 约 38 秒无缝循环的雨声 |
+| [`packs/kaomoji`](packs/kaomoji) | 指令表 | 颜文字 | `/kx` 开心、`/fp` 掀桌等 18 个颜文字 |
+| [`packs/date-formats`](packs/date-formats) | 指令表 | 日期时间格式 | `/rq`、`/iso`、`/sjc` 等 13 种日期时间写法 |
+| [`packs/symbols`](packs/symbols) | 指令表 | 常用符号 | `/ssd` ℃、`/dg` ✓、`/jt` → 等 31 个符号 |
+
+本仓库自带的这些包由维护者制作：音频全部由 [`scripts/generate_seed_packs.py`](scripts/generate_seed_packs.py) 现场合成，没有任何录音或第三方素材，以 CC0-1.0 放入公有领域；旋律包演奏的乐曲均为传统民歌或早已进入公有领域的作品。
 
 ## 安装
 
