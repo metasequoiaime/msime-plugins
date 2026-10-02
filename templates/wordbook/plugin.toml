@@ -1,0 +1,17 @@
+# Template: a wordbook. It appears as a book in 背单词, after the built-in books. Copy this folder to packs/<your-id>/, edit, and replace words.tsv with your own list.
+schema_version = 1
+kind = "wordbook"
+# Besides the common id rules: only lowercase letters, digits and "-", not starting or ending with "-", at most 59 characters (the book's id is pack-<id>).
+id = "example-words"
+# At most 64 characters.
+name = "示例单词本"
+version = "1.0.0"
+# It covers the meanings too: state where they come from in the PR if you did not write them yourself.
+license = "CC0-1.0"
+author = "你的名字"
+description = "模板：三个单词，演示带音标和不带音标两种写法。"
+permissions = []
+
+[wordbook]
+# The only key: a .tsv file in this folder, 1 byte to 4 MiB, UTF-8 (a BOM is allowed), LF or CRLF. Empty lines and # lines are skipped; every other line is word<TAB>meaning or word<TAB>phonetic<TAB>meaning, with no quoting. 1-20000 words, each at most once; one bad line rejects the whole pack.
+file = "words.tsv"
