@@ -1,0 +1,4 @@
+# word<TAB>phonetic<TAB>meaning, or word<TAB>meaning. Word and phonetic at most 64 characters, meaning at most 256; the phonetic column may be left empty.
+algorithm	/ˈælɡərɪðəm/	n. 算法
+compiler	n. 编译器
+cache		n. 高速缓存

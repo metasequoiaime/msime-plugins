@@ -1,0 +1,14 @@
+# Template: a helpcode table. It replaces the helpcode scheme of full pinyin or shuangpin once chosen in 输入 → 辅助码. Copy this folder to packs/<your-id>/, edit, and replace table.txt with a table you have the right to publish under the license below.
+schema_version = 1
+kind = "helpcode"
+id = "example-helpcode"
+name = "示例辅助码"
+version = "1.0.0"
+license = "CC0-1.0"
+author = "你的名字"
+description = "模板：一张只有几个字的演示码表，码是字的两个部件的拼音首字母。"
+permissions = []
+
+[helpcode]
+# The only key: a .txt file in this folder, 1 byte to 1 MiB, UTF-8 (a BOM is allowed), LF or CRLF. Every line is empty, a # comment, or 字=码 with no spaces: exactly one non-ASCII character, then 1-2 lowercase ASCII letters. 1-30000 entries, each character at most once; one bad line rejects the whole pack.
+table = "table.txt"

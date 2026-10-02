@@ -1,0 +1,26 @@
+# Template: a symbol set. Its groups appear in the symbol pickers as soon as it is imported; there is nothing to switch on. Copy this folder to packs/<your-id>/ and edit.
+schema_version = 1
+kind = "symbol_set"
+id = "example-symbols"
+name = "示例符号"
+version = "1.0.0"
+license = "CC0-1.0"
+author = "你的名字"
+description = "模板：一组箭头和一组颜文字。"
+permissions = []
+
+# 1-32 groups, at most 2048 items in all, each group with only these four keys.
+[[groups]]
+# Required: "symbols" puts the group under a category named after this pack in the symbols tab; "kaomoji" adds it after All in the kaomoji tab.
+tab = "symbols"
+# Required: not blank, at most 48 bytes, no control characters.
+title = "箭头"
+# Optional: words the picker's search matches, at most 256 bytes; leave the key out rather than writing it empty.
+keywords = "jiantou arrow"
+# Required: 1-512 strings, each 1-64 UTF-16 units, not blank, no control characters, no repeats within the group.
+items = ["→", "←", "↑", "↓", "⇒", "⇔"]
+
+[[groups]]
+tab = "kaomoji"
+title = "开心"
+items = ["(＾▽＾)", "ヽ(✿ﾟ▽ﾟ)ノ"]

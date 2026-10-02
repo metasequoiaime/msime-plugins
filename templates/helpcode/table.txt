@@ -1,0 +1,9 @@
+# Demo table: each code is the pinyin initials of the character's two components. It only shows the format; it is not a real helpcode scheme.
+好=nz
+明=ry
+休=rm
+林=mm
+男=tl
+尖=xd
+岩=ss
+想=xx

@@ -1,0 +1,23 @@
+# Template: a phrase table. In quick-phrase mode (Shift+K in Chinese mode), typing a key offers every phrase whose key starts with what was typed. Copy this folder to packs/<your-id>/ and edit.
+schema_version = 1
+kind = "phrase_table"
+id = "example-phrases"
+name = "示例短语"
+version = "1.0.0"
+license = "CC0-1.0"
+author = "你的名字"
+description = "模板：几条常用短语。"
+permissions = []
+
+# 1-2000 rows, each with exactly these two keys. key: 1-32 lowercase ASCII letters. text: not blank, at most 199 UTF-16 units, no control characters (no line breaks or tabs). One key may carry several texts, but the same key and text pair may appear only once.
+[[phrases]]
+key = "xx"
+text = "谢谢！"
+
+[[phrases]]
+key = "xx"
+text = "非常感谢！"
+
+[[phrases]]
+key = "yx"
+text = "someone@example.com"
