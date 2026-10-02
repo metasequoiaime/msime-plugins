@@ -8,7 +8,7 @@ permissions: {contents: read}
 concurrency: {group: "validate-${{ github.ref }}", cancel-in-progress: true}
 env:
   # The metasequoiaime/msime commit whose msime-pack the packs are checked with. Bump it when the input method's pack rules change, so CI accepts exactly what the shipped input method imports.
-  MSIME_REV: ebabfd88469341d133a2deb7de24072d708a368c
+  MSIME_REV: 975a0769c7b74a0f745ae346b098e2f32db47259
 jobs:
   validate:
     runs-on: ubuntu-24.04
@@ -55,7 +55,7 @@ jobs:
           shopt -s nullglob
           files=(dist/*)
           if ! gh release view packs >/dev/null 2>&1; then
-            gh release create packs --title "Packs" --notes "The current zip of every pack in packs/ on main. Import a zip in the input method's settings: 扩展 → 导入 .zip. SHA256SUMS.txt lists the checksums."
+            gh release create packs --title "Packs" --notes "The current zip of every pack in packs/ on main. Import a zip in the input method's settings: 插件 → 导入 .zip. SHA256SUMS.txt lists the checksums."
           fi
           if (( ${#files[@]} )); then
             (cd dist && sha256sum -c SHA256SUMS.txt)
